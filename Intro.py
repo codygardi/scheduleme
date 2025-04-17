@@ -12,7 +12,7 @@ st.title("👷 ScheduleMe")
 st.markdown("---")
 
 # Create tabbed sections
-tab1, tab2, tab3 = st.tabs(["About", "Instructions", "Future Updates"])
+tab1, tab2, tab3 = st.tabs(["About", "Future Updates", "Developer Notes"])
 
 with tab1:
     st.markdown("""#### Click the dropdown menus to learn more""")
@@ -32,26 +32,15 @@ with tab1:
     """)
 
 with tab2:
-    with st.expander("How do I work this thing?", expanded=False):
-        st.markdown("""
-        #### 1️⃣ Generate Employee Information
-        - Generate randomized pre-set employee info  
-        - Preview the generated data
-        
-        #### 2️⃣ Generate a Schedule
-        - Use the employee info to generate a schedule  
-        - View the full schedule  
-        - View by individual employee
-
-        #### 3️⃣ View Statistics & Oversight
-        - Show how many employees were staffed  
-        - See where minimum coverage isn’t met  
-        - Get insights to adjustments
-        """)
-
-with tab3:
     st.subheader("Future Updates")
     st.markdown("""
     - Adding a page dedicated to user experience
+    
+    """)
+
+with tab3:
+    st.subheader("Developer Notes")
+    st.markdown("""
+    - N/A
     
     """)
