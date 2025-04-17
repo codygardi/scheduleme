@@ -3,7 +3,7 @@ import pandas as pd
 from modules.employee_generator import generate_employees
 import os
 from modules.scheduler_engine import run_scheduler
-
+st.markdown("---")
 st.title("📁 Quick Demonstration")
 with st.expander("How do I work this thing?", expanded=False):
         st.markdown("""
@@ -22,7 +22,7 @@ with st.expander("How do I work this thing?", expanded=False):
         - Get insights to adjustments
         """)
 st.markdown("---")
-st.subheader("Generate Sample Data")
+st.title("Generate Sample Data")
 # 🔢 Employee slider
 num_employees = st.slider("Select number of employees to generate", min_value=10, max_value=30, value=20)
 
