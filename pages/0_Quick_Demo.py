@@ -5,7 +5,6 @@ import os
 from modules.scheduler_engine import run_scheduler
 
 st.title("📁 Quick Demonstration")
-st.markdown("---")
 with st.expander("How do I work this thing?", expanded=False):
         st.markdown("""
         #### 1️⃣ Generate Employee Information
@@ -22,6 +21,7 @@ with st.expander("How do I work this thing?", expanded=False):
         - See where minimum coverage isn’t met  
         - Get insights to adjustments
         """)
+st.markdown("---")
 st.subheader("Generate Sample Data")
 # 🔢 Employee slider
 num_employees = st.slider("Select number of employees to generate", min_value=10, max_value=30, value=20)
