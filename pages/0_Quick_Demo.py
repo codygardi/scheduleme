@@ -93,10 +93,10 @@ with tab2:
            - `Prioritizes Seniority`
            - `Checks Preferred Regions`
            - `Checks Preferred Day & Shift`
-           - `Matches Employees to Criteria`
+           - `Matches Employees to preferred Criteria`
            - `Enforces Rules like each employee needs 5 shifts (aka 40hrs)`
-           - `Handles Fallbacks if preferrences are not available`
-           - `Outputs Final Schedule that is searcheable by the Employee's Name`
+           - `Handles Fallbacks if preferences are not available`
+           - `Outputs Final Schedule that is searchable by the Employee's Name`
             """)
 
 
