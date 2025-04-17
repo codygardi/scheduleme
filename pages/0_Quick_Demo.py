@@ -6,6 +6,22 @@ from modules.scheduler_engine import run_scheduler
 
 st.title("📁 Quick Demonstration")
 st.markdown("---")
+with st.expander("How do I work this thing?", expanded=False):
+        st.markdown("""
+        #### 1️⃣ Generate Employee Information
+        - Generate randomized pre-set employee info  
+        - Preview the generated data
+        
+        #### 2️⃣ Generate a Schedule
+        - Use the employee info to generate a schedule  
+        - View the full schedule  
+        - View by individual employee
+
+        #### 3️⃣ View Statistics & Oversight
+        - Show how many employees were staffed  
+        - See where minimum coverage isn’t met  
+        - Get insights to adjustments
+        """)
 st.subheader("Generate Sample Data")
 # 🔢 Employee slider
 num_employees = st.slider("Select number of employees to generate", min_value=10, max_value=30, value=20)
