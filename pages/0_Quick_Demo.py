@@ -33,16 +33,12 @@ with tab1:
             #### ✨ Employee Features Explained
 
             - A unique EmployeeID like `E001`, `E002`, etc.  
-            - Realistic `fake` full name generated
-            - Realistic `fake` phone numbers for contacting employees
-            - Randomly selected 1 or 2 preference Regions: (`South Bay, East Bay, North Bay`)
-            - Assigned one of two 5-day schedules: (`Tuesday, Wednesday, Thursday, Friday, Saturday`), (`Sunday, Monday, Tuesday, Wednesday, Thursday`)
-            - Randomly selected shift preference:  (`Morning` or `Afternoon`)
-            - Randomly selected hiring date from the **past 3 years** input as `YYYY-MM-DD` (`helps rank seniority`)
-
-            **7. Export**  
-            - All data is saved as `data/employees.csv`.  
-            - If the folder doesn't exist, it will be created automatically.
+            - Realistic `Fake Full Name` generated
+            - Realistic `Fake Phone Numbers` for contacting employees
+            - Randomly selected 1 or 2 preference Regions: South Bay, East Bay, North Bay`
+            - Assigned one of two preset 5-day `Schedules: Tuesday -> Saturday or Sunday -> Thursday`
+            - Randomly selected `Shift Type: Morning, Afternoon`
+            - Randomly selected `Hiring Date: Establishes Seniority`
         """)
     st.markdown("---")
     # 🔢 Employee slider
