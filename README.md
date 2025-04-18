@@ -27,7 +27,7 @@ It automatically assigns shifts based on seniority, preferences, and coverage ru
 
 - Cody Gardi — Foundation, design, development, and direction
 - GPT-4 — Architectural assistance, code assistance, generating redundant code, and documentation
-- tack Overflow — for edge case fixes
+- Stack Overflow — for edge case fixes
 
 ---
 
