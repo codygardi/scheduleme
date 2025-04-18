@@ -30,32 +30,15 @@ with tab1:
     st.subheader("Generate Sample Data")
     with st.expander("📘 Features", expanded=False):
         st.markdown("""
-            ### ✨ Features Explained
+            #### ✨ Employee Features Explained
 
-            **0. EmployeeID & Name**  
-            - A unique ID like `E001`, `E002`, etc.  
-            - Full name generated using Faker.
-            
-            **1. EmployeeName**  
-            - Full `fake` name generated
-                    
-            **2. Phone Number**  
+            - A unique EmployeeID like `E001`, `E002`, etc.  
+            - Realistic `fake` full name generated
             - Realistic `fake` phone numbers for contacting employees
-
-            **3. Preferred Locations**  
-            - Each employee selects **1 or 2** regions from:  
-            `South Bay, East Bay, North Bay`.
-
-            **4. Available Days**  
-            - Assigned one of two 5-day schedules:  
-            - `Tuesday, Wednesday, Thursday, Friday, Saturday`  
-            - `Sunday, Monday, Tuesday, Wednesday, Thursday`
-
-            **5. Shift Preference**  
-            - Randomly selected as either `Morning` or `Afternoon`.
-
-            **6. Date Hired**  
-            - Random hiring date from the **past 3 years** input as `YYYY-MM-DD` (helps rank seniority).
+            - Randomly selected 1 or 2 preference Regions: (`South Bay, East Bay, North Bay`)
+            - Assigned one of two 5-day schedules: (`Tuesday, Wednesday, Thursday, Friday, Saturday`), (`Sunday, Monday, Tuesday, Wednesday, Thursday`)
+            - Randomly selected shift preference:  (`Morning` or `Afternoon`)
+            - Randomly selected hiring date from the **past 3 years** input as `YYYY-MM-DD` (`helps rank seniority`)
 
             **7. Export**  
             - All data is saved as `data/employees.csv`.  
