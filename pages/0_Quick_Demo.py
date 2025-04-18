@@ -33,8 +33,8 @@ with tab1:
             #### ✨ Employee Features Explained
 
             - A unique `EmployeeID: E001, E002, etc.`  
-            - Realistic `Fake Full Name` generated
-            - Realistic `Fake Phone Numbers` for contacting employees
+            - Realistic `Fake Full Names`
+            - Realistic `Fake Phone Numbers`
             - Randomly selected 1 or 2 preference `Regions: South Bay, East Bay, North Bay`
             - Assigned one of two preset 5-day `Schedules: Tuesday -> Saturday or Sunday -> Thursday`
             - Randomly selected `Shift Type: Morning, Afternoon`
