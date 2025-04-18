@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("📅 Welcome to ScheduleMe (`Alpha`)")
+st.title("Welcome to my Scheduling App")
 st.markdown("---")
 
 # Create tabbed sections
@@ -20,19 +20,19 @@ with tab1:
     st.subheader("Getting Started")
     with st.expander("🧠 Quick Start: How to Use This App", expanded=False):
         st.markdown("""
-        #### Step 1: Configure Your Setup
+        #### ✅ Step 1: Configure Your Setup
         - Choose the number of employees and locations (zones)
         - (Optional) Customize shift days and types
 
-        #### Step 2: Generate Employee Data
+        #### 🧪 Step 2: Generate Employee Data
         - Click **"Generate Employees"**
         - Preview the sample employee info
 
-        #### Step 3: Build the Schedule
+        #### 📅 Step 3: Build the Schedule
         - Click **"Generate Schedule"**
         - View schedules for each employee
 
-        #### Step 4: Explore Results
+        #### 🔍 Step 4: Explore Results
         - Select an employee to see their assigned shifts
         - Check insights on coverage and balance (coming soon!)
 
@@ -125,20 +125,17 @@ with tab1:
                 st.info("No shifts assigned to this employee.")
 with tab2:
     st.markdown("""#### Click the dropdown menus to learn more""")
-    with st.expander("What is **ScheduleMe**", expanded=False):
+    with st.expander("What is this app?", expanded=False):
         st.markdown("""
-        **ScheduleMe** is a scheduling system built for operations teams managing people across multiple territories.
+        **It's a scheduling system built for operations teams managing people across multiple territories.
         """)
-    with st.expander("How does **ScheduleMe** help you", expanded=False):
+    with st.expander("What business problem did this solve", expanded=False):
         st.markdown("""
-        It's designed to save time, prevent overstaffing, amd give employees options. ScheduleMe ensures every employee is scheduled fairly and efficiently while taking their preferences into consideration.
+        It's saved managerial hassle by preventing under/ overstaffing, and gives employees options. It also ensures every employee is scheduled fairly and efficiently while taking their preferences into consideration.
         """)
     st.markdown("---")
     # st.info("📱 **Mobile Users:** Click the arrow in the upper left corner to navigate between pages.")
-    # st.info("🖥️ **Desktop Users:** Click the sidebar to the left to navigate between pages.")  
-    st.markdown("""
-    ***⚠️ This software is proprietary. Unauthorized copying, modification, or distribution is strictly prohibited. All rights reserved © 2025 Cody Gardi***
-    """)
+    # st.info("🖥️ **Desktop Users:** Click the sidebar to the left to navigate between pages.")
 
 with tab3:
     st.subheader("Future Updates")
