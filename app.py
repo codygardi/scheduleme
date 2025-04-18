@@ -18,22 +18,29 @@ st.markdown("---")
 tab1, tab2, tab3, tab4 = st.tabs(["ScheduleMe", "More Info", "Future Updates", "Developer Notes"])
 with tab1:
     st.subheader("Getting Started")
-    with st.expander("How do I work this thing?", expanded=False):
-            st.markdown("""
-            #### 1️⃣ Generate Sample Data
-            - Generate randomized pre-set employee info  
-            - Preview the generated data
-            
-            #### 2️⃣ Generate Schedule
-            - Use the employee info to generate a schedule  
-            - View the full schedule  
-            - View by individual employee
+    with st.expander("🧠 Quick Start: How to Use This App", expanded=False):
+        st.markdown("""
+        #### ✅ Step 1: Configure Your Setup
+        - Choose the number of employees and locations (zones)
+        - (Optional) Customize shift days and types
 
-            #### 3️⃣ View Statistics & Oversight
-            - Show how many employees were staffed  
-            - See where minimum coverage isn’t met  
-            - Get insights to adjustments
-            """)
+        #### 🧪 Step 2: Generate Employee Data
+        - Click **"Generate Employees"**
+        - Preview the sample employee info
+
+        #### 📅 Step 3: Build the Schedule
+        - Click **"Generate Schedule"**
+        - View schedules for each employee
+
+        #### 🔍 Step 4: Explore Results
+        - Select an employee to see their assigned shifts
+        - Check insights on coverage and balance (coming soon!)
+
+        ---
+        📁 For more info, visit the **“More Info” tab**  
+        🛠️ To adjust rules, go to the **“Rule Configuration” page (coming soon)**  
+        """)
+
     st.markdown("---")
 
     # Management Inputs
