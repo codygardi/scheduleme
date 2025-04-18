@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("Welcome to ScheduleMe (`Alpha`)")
+st.title("📅 Welcome to ScheduleMe (`Alpha`)")
 st.markdown("---")
 
 # Create tabbed sections
@@ -20,19 +20,19 @@ with tab1:
     st.subheader("Getting Started")
     with st.expander("🧠 Quick Start: How to Use This App", expanded=False):
         st.markdown("""
-        #### ✅ Step 1: Configure Your Setup
+        #### Step 1: Configure Your Setup
         - Choose the number of employees and locations (zones)
         - (Optional) Customize shift days and types
 
-        #### 🧪 Step 2: Generate Employee Data
+        #### Step 2: Generate Employee Data
         - Click **"Generate Employees"**
         - Preview the sample employee info
 
-        #### 📅 Step 3: Build the Schedule
+        #### Step 3: Build the Schedule
         - Click **"Generate Schedule"**
         - View schedules for each employee
 
-        #### 🔍 Step 4: Explore Results
+        #### Step 4: Explore Results
         - Select an employee to see their assigned shifts
         - Check insights on coverage and balance (coming soon!)
 
