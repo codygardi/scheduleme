@@ -32,10 +32,10 @@ with tab1:
         st.markdown("""
             #### ✨ Employee Features Explained
 
-            - A unique EmployeeID like `E001`, `E002`, etc.  
+            - A unique `EmployeeID: E001, E002, etc.`  
             - Realistic `Fake Full Name` generated
             - Realistic `Fake Phone Numbers` for contacting employees
-            - Randomly selected 1 or 2 preference Regions: South Bay, East Bay, North Bay`
+            - Randomly selected 1 or 2 preference `Regions: South Bay, East Bay, North Bay`
             - Assigned one of two preset 5-day `Schedules: Tuesday -> Saturday or Sunday -> Thursday`
             - Randomly selected `Shift Type: Morning, Afternoon`
             - Randomly selected `Hiring Date: Establishes Seniority`
