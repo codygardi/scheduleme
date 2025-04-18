@@ -11,7 +11,7 @@ It automatically assigns shifts based on seniority, preferences, and coverage ru
 - Weekly schedule generation (Sunday to Saturday)
 - Seniority-based shift assignments
 - Honors shift and territory preferences with fallback logic
-- Balanced technician coverage across 3 Bay Area territories
+- Balanced technician coverage across many locations
 - Minimum shift enforcement + weekend coverage requirement
 - Retry logic for under-scheduled employees
 - Region-level statistics dashboard for management oversight
