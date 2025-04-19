@@ -140,13 +140,15 @@ with tab2:
 with tab3:
     st.subheader("Future Updates")
     st.markdown("""
-    - Adding a page dedicated to user experience
+    - Database to update remotely
+    - Menu for employees to change preferences with 2FA
+    - Schedule swapping system for shift coverage/ swapping
     
     """)
 
 with tab4:
     st.subheader("Developer Notes")
     st.markdown("""
-    - N/A
+    - Thank you for checking out my first deployed app!
     
     """)
