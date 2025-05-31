@@ -101,7 +101,7 @@ with st.expander("SENIORITY & PREFERENCES", expanded=False):
 with st.expander("CONSTRAINTS & COOLDOWNS", expanded=False):
     st.markdown("---")
     scheduler_engine.RULES['enforce_consecutive_day_limit'] = st.checkbox("Limit Consecutive Workdays", scheduler_engine.RULES['enforce_consecutive_day_limit'])
-    scheduler_engine.RULES['max_consecutive_days'] = st.slider("Max Consecutive Days", 1, 10, scheduler_engine.RULES['max_consecutive_days'])
+    scheduler_engine.RULES['max_consecutive_days'] = st.slider("Max Consecutive Days", 1, 7, scheduler_engine.RULES['max_consecutive_days'])
 
     scheduler_engine.RULES['enforce_shift_cooldown'] = st.checkbox("Enforce Shift Cooldown", scheduler_engine.RULES['enforce_shift_cooldown'])
     scheduler_engine.RULES['min_hours_between_shifts'] = st.slider("Cooldown Hours Between Shifts", 1, 24, scheduler_engine.RULES['min_hours_between_shifts'])
