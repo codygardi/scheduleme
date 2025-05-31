@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from modules.db_manager import init_db, load_schedule
 from modules.scheduler_engine import RULES as SCHEDULER_RULES
@@ -49,8 +50,10 @@ if emp_schedule.empty:
 else:
     st.dataframe(emp_schedule, use_container_width=True)
 
-
+# ----------------------------
 # Under-scheduled
+# ----------------------------
+
 min_req = SCHEDULER_RULES.get('min_staff_threshold', 3)
 under_scheduled = shift_counts[shift_counts['Count'] < min_req]
 
@@ -59,19 +62,22 @@ if under_scheduled.empty:
     st.success("All shifts meet minimum coverage.")
 else:
     st.dataframe(under_scheduled, use_container_width=True)
-    
+
 # ----------------------------
-# Shift Coverage Chart
+# Shift Coverage Chart (Seaborn)
 # ----------------------------
 
 st.subheader("Shift Coverage Chart")
 
-fig, ax = plt.subplots(figsize=(10, 5))
-pivot = shift_counts.pivot_table(index='Date', columns=['Location', 'Shift'], values='Count', fill_value=0)
-pivot.plot(kind='bar', ax=ax)
+fig, ax = plt.subplots(figsize=(12, 6))
+chart_data = shift_counts.copy()
+chart_data["Date"] = chart_data["Date"].astype(str)  # Convert for better x-axis labels
+chart_data["Group"] = chart_data["Date"] + " | " + chart_data["Location"] + " | " + chart_data["Shift"]
+
+sns.barplot(data=chart_data, x="Group", y="Count", ax=ax)
 ax.set_ylabel("Employees Assigned")
 ax.set_title("Shift Coverage by Date / Location / Shift")
-plt.xticks(rotation=45)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
 st.pyplot(fig)
 
 # ----------------------------
@@ -88,7 +94,6 @@ assigned_counts = (
 
 max_shifts = SCHEDULER_RULES.get('max_shifts_per_employee', 5)
 
-# Under-assigned employees
 under_assigned = assigned_counts[assigned_counts['AssignedShifts'] < max_shifts]
 if not under_assigned.empty:
     st.subheader(f"Employees With Fewer Than {max_shifts} Shifts")
@@ -97,7 +102,6 @@ if not under_assigned.empty:
 else:
     st.success("All employees meet the minimum shift expectation.")
 
-# Over-assigned employees
 over_assigned = assigned_counts[assigned_counts['AssignedShifts'] > max_shifts]
 if not over_assigned.empty:
     st.subheader(f"Employees With MORE Than {max_shifts} Shifts (Violation)")
