@@ -69,7 +69,7 @@ with st.expander("GLOBAL SCHEDULING PARAMETERS", expanded=False):
 with st.expander("CORE ASSIGNMENT RULES", expanded=False):
     st.markdown("---")
     scheduler_engine.RULES['enforce_work_pattern'] = st.checkbox("Respect Work Patterns", scheduler_engine.RULES['enforce_work_pattern'])
-    scheduler_engine.RULES['enforce_no_morning_after_night'] = st.checkbox("Avoid Morning After Night", scheduler_engine.RULES['enforce_no_morning_after_night'])
+    scheduler_engine.RULES['enforce_no_morning_after_night'] = st.checkbox("Don't allow Morning After Night", scheduler_engine.RULES['enforce_no_morning_after_night'])
 
     scheduler_engine.RULES['shift_preference_mode'] = st.radio(
         "Preferred Shift Handling",
