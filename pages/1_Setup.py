@@ -63,13 +63,14 @@ with st.expander("GLOBAL SCHEDULING PARAMETERS", expanded=False):
     )
 
 # ----------------------------
-# Core Assignment Rules
+# Preferences & Core Assignment Rules
 # ----------------------------
 
-with st.expander("CORE ASSIGNMENT RULES", expanded=False):
+with st.expander("PREFERENCES & CORE ASSIGNMENT RULES", expanded=False):
     st.markdown("---")
     scheduler_engine.RULES['enforce_work_pattern'] = st.checkbox("Respect Employee Availability", scheduler_engine.RULES['enforce_work_pattern'])
     scheduler_engine.RULES['enforce_no_morning_after_night'] = st.checkbox("Avoid Morning After Night", scheduler_engine.RULES['enforce_no_morning_after_night'])
+    scheduler_engine.RULES['use_seniority_weighting'] = st.checkbox("Use Seniority Weighting", scheduler_engine.RULES['use_seniority_weighting'])
 
     scheduler_engine.RULES['shift_preference_mode'] = st.radio(
         "Preferred Shift Handling",
@@ -84,14 +85,6 @@ with st.expander("CORE ASSIGNMENT RULES", expanded=False):
         index=["strict", "soft", "ignore"].index(scheduler_engine.RULES.get('location_preference_mode', 'soft')),
         help="Strict = Required, Soft = Prefer, Ignore = No Preference"
     )
-
-# ----------------------------
-# Seniority and Preferences
-# ----------------------------
-
-with st.expander("SENIORITY & PREFERENCES", expanded=False):
-    st.markdown("---")
-    scheduler_engine.RULES['use_seniority_weighting'] = st.checkbox("Use Seniority Weighting", scheduler_engine.RULES['use_seniority_weighting'])
 
 # ----------------------------
 # Constraints and Cooldowns
