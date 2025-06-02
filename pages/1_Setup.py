@@ -4,20 +4,20 @@ from datetime import date
 from modules.employee_generator import generate_employees
 from modules.db_manager import load_employees
 from modules import scheduler_engine
+
 st.markdown("---")
 st.title("Setup & Configuration")
 st.markdown("---")
+
 # ----------------------------
 # Init Session State
 # ----------------------------
-
 st.session_state.setdefault("holiday_buffer", [])
 st.session_state.setdefault("locked_locations", [])
 
 # ----------------------------
 # Employee Generation
 # ----------------------------
-
 with st.expander("EMPLOYEE GENERATOR", expanded=True):
     st.markdown("---")
     num_employees = st.slider("Number of employees", 5, 100, value=30)
@@ -36,9 +36,11 @@ with st.expander("EMPLOYEE GENERATOR", expanded=True):
 st.markdown("---")
 st.header("Scheduler Rules")
 st.markdown("---")
+
 with st.expander("GLOBAL SCHEDULING PARAMETERS", expanded=False):
     st.markdown("---")
-    scheduler_engine.RULES['schedule_days'] = st.slider("Schedule length (days)", 1, 30, scheduler_engine.RULES['schedule_days'])
+    scheduler_engine.RULES['schedule_days'] = st.slider(
+        "Schedule length (days)", 1, 30, scheduler_engine.RULES['schedule_days'])
 
     scheduler_engine.RULES['shift_types'] = st.multiselect(
         "Shift types", ["Morning", "Afternoon", "Night"],
@@ -65,12 +67,14 @@ with st.expander("GLOBAL SCHEDULING PARAMETERS", expanded=False):
 # ----------------------------
 # Preferences & Core Assignment Rules
 # ----------------------------
-
 with st.expander("PREFERENCES & CORE ASSIGNMENT RULES", expanded=False):
     st.markdown("---")
-    scheduler_engine.RULES['enforce_work_pattern'] = st.checkbox("Respect Employee Availability", scheduler_engine.RULES['enforce_work_pattern'])
-    scheduler_engine.RULES['enforce_no_morning_after_night'] = st.checkbox("Enforce no Morning After Night", scheduler_engine.RULES['enforce_no_morning_after_night'])
-    scheduler_engine.RULES['use_seniority_weighting'] = st.checkbox("Use Seniority Weighting", scheduler_engine.RULES['use_seniority_weighting'])
+    scheduler_engine.RULES['enforce_work_pattern'] = st.checkbox(
+        "Respect Employee Availability", scheduler_engine.RULES['enforce_work_pattern'])
+    scheduler_engine.RULES['enforce_no_morning_after_night'] = st.checkbox(
+        "Enforce no Morning After Night", scheduler_engine.RULES['enforce_no_morning_after_night'])
+    scheduler_engine.RULES['use_seniority_weighting'] = st.checkbox(
+        "Use Seniority Weighting", scheduler_engine.RULES['use_seniority_weighting'])
 
     scheduler_engine.RULES['shift_preference_mode'] = st.radio(
         "Preferred Shift Handling",
@@ -89,19 +93,21 @@ with st.expander("PREFERENCES & CORE ASSIGNMENT RULES", expanded=False):
 # ----------------------------
 # Constraints and Cooldowns
 # ----------------------------
-
 with st.expander("CONSTRAINTS & COOLDOWNS", expanded=False):
     st.markdown("---")
-    scheduler_engine.RULES['enforce_consecutive_day_limit'] = st.checkbox("Limit Consecutive Workdays", scheduler_engine.RULES['enforce_consecutive_day_limit'])
-    scheduler_engine.RULES['max_consecutive_days'] = st.slider("Max Consecutive Days", 1, 10, scheduler_engine.RULES['max_consecutive_days'])
+    scheduler_engine.RULES['enforce_consecutive_day_limit'] = st.checkbox(
+        "Limit Consecutive Workdays", scheduler_engine.RULES['enforce_consecutive_day_limit'])
+    scheduler_engine.RULES['max_consecutive_days'] = st.slider(
+        "Max Consecutive Days", 1, 10, scheduler_engine.RULES['max_consecutive_days'])
 
-    scheduler_engine.RULES['enforce_shift_cooldown'] = st.checkbox("Enforce Shift Cooldown", scheduler_engine.RULES['enforce_shift_cooldown'])
-    scheduler_engine.RULES['min_hours_between_shifts'] = st.slider("Cooldown Hours Between Shifts", 1, 24, scheduler_engine.RULES['min_hours_between_shifts'])
+    scheduler_engine.RULES['enforce_shift_cooldown'] = st.checkbox(
+        "Enforce Shift Cooldown", scheduler_engine.RULES['enforce_shift_cooldown'])
+    scheduler_engine.RULES['min_hours_between_shifts'] = st.slider(
+        "Cooldown Hours Between Shifts", 1, 24, scheduler_engine.RULES['min_hours_between_shifts'])
 
 # ----------------------------
 # Holiday Logic
 # ----------------------------
-
 with st.expander("COMPANY-WIDE HOLIDAYS", expanded=False):
     st.markdown("---")
     st.markdown("Add one or more **company-wide holidays**. These will be blocked from scheduling.")
@@ -124,26 +130,3 @@ with st.expander("COMPANY-WIDE HOLIDAYS", expanded=False):
             st.session_state.holiday_buffer = []
 
     scheduler_engine.RULES['holiday_dates'] = st.session_state.holiday_buffer
-
-# ----------------------------
-# Locked Locations
-# ----------------------------
-
-with st.expander("LOCKED LOCATIONS", expanded=False):
-    st.markdown("---")
-    st.session_state.locked_locations = st.multiselect(
-        "Lock specific locations from being scheduled:",
-        options=scheduler_engine.RULES['active_locations'],
-        default=st.session_state.locked_locations,
-    )
-    scheduler_engine.RULES['locked_locations'] = st.session_state.locked_locations
-
-# ----------------------------
-# Rebalancing Controls
-# ----------------------------
-
-with st.expander("REBALANCING RULES", expanded=False):
-    st.markdown("---")
-    st.markdown("_Note: If enabled, rebalancing will automatically run after scheduling is generated._")
-    scheduler_engine.RULES['balance_enabled'] = st.checkbox("Enable Shift Rebalancing", scheduler_engine.RULES['balance_enabled'])
-    scheduler_engine.RULES['balance_prefer_seniority'] = st.checkbox("Prefer Seniority in Rebalancing", scheduler_engine.RULES['balance_prefer_seniority'])
