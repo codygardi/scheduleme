@@ -35,9 +35,10 @@ def load_employees():
     path = get_employee_csv()
     if not os.path.exists(path):
         return pd.DataFrame(columns=[
-            "EmployeeID", "DateHired", "WorkPattern",
-            "PreferredLocations", "PreferredShifts",
-            "UnavailableDates", "PhoneNumber", "SkillLevel"
+            "EmployeeID","Name", "PhoneNumber"
+            "DateHired","WorkPattern",
+            "PreferredLocations","PreferredShifts",
+            "SkillLevel", "UnavailableDates"
         ])
     
     df = pd.read_csv(path)
@@ -60,7 +61,7 @@ def load_schedule():
     path = get_schedule_csv()
     if not os.path.exists(path):
         return pd.DataFrame(columns=[
-            "EmployeeID", "Date", "Shift", "Location", "Locked"
+            "EmployeeID", "Name", "Date", "Shift", "Location", "Locked"
         ])
     
     df = pd.read_csv(path)
@@ -92,5 +93,5 @@ def init_db():
 
     if not os.path.exists(sched_path):
         pd.DataFrame(columns=[
-            "EmployeeID", "Date", "Shift", "Location", "Locked"
+            "EmployeeID", "Name", "Date", "Shift", "Location", "Locked"
         ]).to_csv(sched_path, index=False)
