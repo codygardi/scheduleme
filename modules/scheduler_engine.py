@@ -179,40 +179,45 @@ def _rebalance_schedule(schedule_df, employees_df):
     if not RULES['balance_enabled']:
         return
 
-    # Join DateHired and WorkPattern into schedule_df
-    enriched_df = schedule_df.merge(
+    schedule_df['Date'] = pd.to_datetime(schedule_df['Date'])
+    employees_df['DateHired'] = pd.to_datetime(employees_df['DateHired'])
+
+    enriched = schedule_df.merge(
         employees_df[['EmployeeID', 'DateHired', 'WorkPattern']],
         on='EmployeeID',
         how='left'
     )
 
     shift_counts = (
-        enriched_df.groupby(['Date', 'Location', 'Shift'])['EmployeeID']
+        enriched.groupby(['Date', 'Location', 'Shift'])['EmployeeID']
         .count()
         .reset_index(name='Count')
     )
 
     for _, row in shift_counts.iterrows():
         date, loc, shift, count = row['Date'], row['Location'], row['Shift'], row['Count']
-
-        if date.strftime('%Y-%m-%d') in RULES.get('holiday_dates', []):
-            continue
-        if loc in RULES.get('locked_locations', []):
-            continue
         if count >= RULES['min_staff_threshold']:
             continue
+        if date.strftime('%Y-%m-%d') in RULES['holiday_dates']:
+            continue
+        if loc in RULES['locked_locations']:
+            continue
 
-        donors = shift_counts[
+        # Find overstaffed shift same day
+        overs = shift_counts[
             (shift_counts['Date'] == date) &
-            (shift_counts['Location'] != loc) &
-            (shift_counts['Count'] > RULES['min_staff_threshold'])
+            (shift_counts['Count'] >= RULES['max_staff_per_shift'])
         ]
 
-        for _, donor in donors.iterrows():
-            donor_emps = enriched_df[
-                (enriched_df['Date'] == date) &
-                (enriched_df['Location'] == donor['Location']) &
-                (enriched_df['Shift'] == donor['Shift'])
+        for _, over in overs.iterrows():
+            donor_loc, donor_shift = over['Location'], over['Shift']
+            if donor_loc == loc and donor_shift == shift:
+                continue
+
+            donor_emps = enriched[
+                (enriched['Date'] == date) &
+                (enriched['Location'] == donor_loc) &
+                (enriched['Shift'] == donor_shift)
             ]
 
             if RULES['balance_prefer_seniority']:
@@ -223,47 +228,49 @@ def _rebalance_schedule(schedule_df, employees_df):
                 if emp.get('Locked'):
                     continue
 
-                if RULES['enforce_no_morning_after_night'] and shift == 'Morning':
-                    prev_shift_df = enriched_df[
-                        (enriched_df['EmployeeID'] == emp_id) &
-                        (enriched_df['Date'] == pd.to_datetime(date) - timedelta(days=1))
-                    ]
-                    if not prev_shift_df.empty and prev_shift_df.iloc[0]['Shift'] == 'Night':
-                        continue
-
                 if RULES['enforce_work_pattern']:
-                    day_name = pd.to_datetime(date).strftime('%A')
-                    if day_name not in emp['WorkPattern']:
+                    if date.strftime('%A') not in emp['WorkPattern']:
                         continue
 
-                if len(enriched_df[enriched_df['EmployeeID'] == emp_id]) >= RULES['max_shifts_per_employee']:
-                    continue
-
-                if RULES['enforce_consecutive_day_limit']:
-                    if count_consecutive_days_df(emp_id, pd.to_datetime(date), enriched_df) >= RULES['max_consecutive_days']:
-                        continue
-
-                if RULES['enforce_shift_cooldown']:
-                    prev_day = pd.to_datetime(date) - timedelta(days=1)
-                    prev_shift_df = enriched_df[
-                        (enriched_df['EmployeeID'] == emp_id) &
-                        (enriched_df['Date'] == prev_day)
+                # Morning-after-night rule
+                if RULES['enforce_no_morning_after_night'] and shift == 'Morning':
+                    prev_shift = enriched[
+                        (enriched['EmployeeID'] == emp_id) &
+                        (enriched['Date'] == date - timedelta(days=1))
                     ]
+                    if not prev_shift.empty and prev_shift.iloc[0]['Shift'] == 'Night':
+                        continue
+
+                # Consecutive day limit
+                if RULES['enforce_consecutive_day_limit']:
+                    if count_consecutive_days_df(emp_id, date, enriched) >= RULES['max_consecutive_days']:
+                        continue
+
+                # Cooldown enforcement
+                if RULES['enforce_shift_cooldown']:
+                    prev_shift_df = enriched[
+                        (enriched['EmployeeID'] == emp_id) &
+                        (enriched['Date'] == date - timedelta(days=1))
+                    ]
+                    shift_hours = {'Morning': 8, 'Afternoon': 16, 'Night': 22}
                     if not prev_shift_df.empty:
                         prev_shift = prev_shift_df.iloc[0]['Shift']
-                        shift_hours = {'Morning': 8, 'Afternoon': 16, 'Night': 22}
-                        last_shift_end = datetime.combine(prev_day, datetime.min.time()) + timedelta(hours=shift_hours.get(prev_shift, 0))
-                        new_shift_start = datetime.combine(pd.to_datetime(date), datetime.min.time()) + timedelta(hours=shift_hours.get(shift, 0))
-                        if (new_shift_start - last_shift_end).total_seconds() < RULES['min_hours_between_shifts'] * 3600:
+                        prev_end = datetime.combine(date - timedelta(days=1), datetime.min.time()) + timedelta(
+                            hours=shift_hours.get(prev_shift, 0))
+                        new_start = datetime.combine(date, datetime.min.time()) + timedelta(
+                            hours=shift_hours.get(shift, 0))
+                        if (new_start - prev_end).total_seconds() < RULES['min_hours_between_shifts'] * 3600:
                             continue
 
-                enriched_df.loc[
-                    (enriched_df['EmployeeID'] == emp_id) & (enriched_df['Date'] == date),
+                # Perform swap
+                enriched.loc[
+                    (enriched['EmployeeID'] == emp_id) & (enriched['Date'] == date),
                     ['Shift', 'Location']
                 ] = [shift, loc]
-                break
 
-    save_schedule(enriched_df.drop(columns=['DateHired', 'WorkPattern']))
+                # One move per loop
+                save_schedule(enriched.drop(columns=['DateHired', 'WorkPattern']))
+                return
 
 
 # ----------------------------
