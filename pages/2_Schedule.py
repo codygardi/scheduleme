@@ -24,7 +24,7 @@ if schedule_df.empty:
     st.stop()
 
 st.markdown("---")
-tab1, tab2, tab3 = st.tabs(["Schedule", "Logistics", "Underscheduled"])
+tab1, tab2, tab3 = st.tabs(["| Schedule |", "| Logistics |", "| Underscheduled |"])
 
 # ----------------------------
 # Tab 1 - Schedule Viewer
