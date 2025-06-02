@@ -10,7 +10,7 @@ from faker import Faker
 LOCATIONS = RULES['active_locations']
 SHIFT_TYPES = RULES['shift_types']
 WORK_PATTERNS = [
-    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"],
     ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
     ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
